@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrokFlix Ultra</title>
+
+<style>
+body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial}
+header{padding:15px;background:#000;color:#e50914;font-size:26px;font-weight:bold}
+.container{width:95%;max-width:1100px;margin:auto}
+video{width:100%;border-radius:10px;background:black;margin-top:20px}
+.section{margin-top:30px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.card{background:#1c1c1c;padding:10px;border-radius:8px;cursor:pointer;text-align:center}
+.card:hover{background:#e50914}
+.ai-box{background:#111;padding:10px;border-radius:10px;margin-top:30px}
+.ai-messages{height:200px;overflow:auto;margin-bottom:10px}
+.ai-input{display:flex}
+.ai-input input{flex:1;padding:10px;border:none}
+.ai-input button{background:#e50914;border:none;color:white;padding:10px}
+</style>
+
+</head>
+
+<body>
+
+<header>GROKFLIX ULTRA</header>
+
+<div class="container">
+
+<video id="video" controls>
+<source id="source" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">
+</video>
+
+<div class="section">
+<h2>🇹🇷 Türkçe Çizgi Filmler</h2>
+
+<div class="grid">
+
+<div class="card" onclick="play('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">Big Buck Bunny</div>
+
+<div class="card" onclick="play('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4')">Sintel</div>
+
+<div class="card" onclick="play('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')">Elephants Dream</div>
+
+<div class="card" onclick="play('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4')">Tears of Steel</div>
+
+<div class="card" onclick="play('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4')">Animasyon Fun</div>
+
+<div class="card" onclick="play('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4')">Joyrides</div>
+
+<div class="card" onclick="play('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscape.mp4')">Escape</div>
+
+</div>
+</div>
+
+<!-- AI BÖLÜMÜ -->
+<div class="ai-box">
+<h2>🤖 Yapay Zeka Asistanı</h2>
+
+<div class="ai-messages" id="aiMessages"></div>
+
+<div class="ai-input">
+<input id="aiInput" placeholder="Mesaj yaz...">
+<button onclick="sendAI()">Gönder</button>
+</div>
+</div>
+
+</div>
+
+<script>
+function play(url){
+ const video=document.getElementById('video');
+ const source=document.getElementById('source');
+ source.src=url;
+ video.load();
+ video.play().catch(()=>{});
+}
+
+function sendAI(){
+ const input=document.getElementById('aiInput');
+ const box=document.getElementById('aiMessages');
+ const msg=input.value;
+ if(!msg) return;
+
+ box.innerHTML += `<div>Sen: ${msg}</div>`;
+
+ let reply="Ne izlemek istersin? 🎬";
+ if(msg.toLowerCase().includes("çizgi")) reply="Sintel veya Big Buck Bunny öneririm 🐰";
+ if(msg.toLowerCase().includes("aksiyon")) reply="Tears of Steel izle 💥";
+
+ box.innerHTML += `<div>AI: ${reply}</div>`;
+
+ input.value="";
+ box.scrollTop=box.scrollHeight;
+}
+</script>
+
+</body>
+</html>
